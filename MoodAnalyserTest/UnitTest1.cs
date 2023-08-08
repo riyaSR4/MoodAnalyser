@@ -28,8 +28,27 @@ namespace MoodAnalyserTest
         {
             string message = null;
             MoodAnalyser analyser = new MoodAnalyser(message);
-            string actual = analyser.AnalyseMood();
-            Assert.AreEqual(actual, "HAPPY");
+            try
+            {
+                string actual = analyser.AnalyseMood();
+            }catch (MoodAnalyserException ex)
+            {
+                Assert.AreEqual(ex.Message, "Message is Null");
+            }
+        }
+        [Test]
+        public void GivenEmptyMessage_WhenAnalyse_ShouldReturnHappy()
+        {
+            string message = "";
+            MoodAnalyser analyser = new MoodAnalyser(message);
+            try
+            {
+                string actual = analyser.AnalyseMood();
+            }
+            catch (MoodAnalyserException ex)
+            {
+                Assert.AreEqual(ex.Message, "Message is Empty");
+            }
         }
     }
 }
